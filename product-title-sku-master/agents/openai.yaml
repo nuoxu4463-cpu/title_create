@@ -1,0 +1,4 @@
+interface:
+  display_name: "Meituan Title SKU Master"
+  short_description: "Generate Meituan titles, SKUs, and upload sheets"
+  default_prompt: "Generate compliant Meituan product titles, SKU selling specs, comparable brand references, and upload-template rows from product text, images, or image spreadsheets."
