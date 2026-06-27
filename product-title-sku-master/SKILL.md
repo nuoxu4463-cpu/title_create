@@ -13,6 +13,7 @@ Use the bundled references selectively before producing the final answer:
 
 - `references/55-60字商品长标题词表.txt`: category examples and title structures.
 - `references/按类目整理症状词与长尾词表.txt`: symptom, audience, body-part, scenario, and long-tail terms by category.
+- `references/商品分类整理.txt`: product category mapping and category-specific `通用搭` phrases.
 - `references/forbidden-words.md`: forbidden words and safer replacements.
 
 Search or skim only the relevant category sections unless the user asks for broad analysis.
@@ -32,14 +33,16 @@ If a required product detail is missing, infer conservatively from the product t
 
 Create one product title with 55-60 characters. Count every Chinese character, English letter, digit, and punctuation mark as 1 character. Use this structure:
 
-`品牌名（如有） + 商品名 + 规格 + 核心功效/适用方向 + 症状长尾词 + 人群/场景词（1-2个）`
+`品牌名（如有） + 商品名 + 规格 + 核心功效/适用方向 + 症状长尾词 + 限定人群词 + 对应品类通用搭词条`
 
 Follow these rules:
 
 - Make the first 18-25 characters clearly identify what is being sold.
 - Put core benefit or usage direction in the middle, such as `清洁护理`, `体重管理`, `营养补充`, `屏障修护`, `舒缓护理`.
 - Put symptom and long-tail terms later, using terms from the category reference file.
-- Use only 1-2 audience/scenario terms, such as `成人适用`, `居家常备`, `快递到家`, `保密发货`.
+- Use at most one audience term, and only from this list: `中老年人`, `儿童`, `小儿`, `青少年`, `女性`, `男性`.
+- Append one category-matched `通用搭` phrase from `references/商品分类整理.txt` when the product category is identifiable. Prefer exact wording from the file, trimmed only if needed to meet the 55-60 character limit.
+- Do not add freeform scenario words such as `居家常备`, `快递到家`, `保密发货`, `成人适用`, or `日常补充` unless they are part of a chosen reference phrase or the user explicitly asks for them.
 - Avoid OTC drug positioning. Prefer compliant words such as `护理`, `营养`, `管理`, `舒缓`, `清洁`, `修护`, `辅助`.
 - Do not use high-risk words such as `治疗`, `治愈`, `根治`, `药效`, `处方`, `消炎杀菌`, `快速见效`.
 - Do not use terms listed in `references/forbidden-words.md`; use suggested replacements only when they do not create medical or exaggerated claims.
@@ -48,13 +51,15 @@ Follow these rules:
 ## Generation Workflow
 
 1. Identify the closest category/赛道 from `55-60字商品长标题词表.txt`.
-2. Select relevant symptom, usage, audience, and scenario terms from `按类目整理症状词与长尾词表.txt`.
-3. Draft a title using the required structure.
-4. Count characters exactly. Revise until the title is 55-60 characters.
-5. Check the title twice for repeated words/phrases.
-6. Check forbidden words and high-risk medical claims.
-7. Keep the character count as an internal verification step; do not show counting details unless the user asks for them.
-8. If no compliant 55-60 character title can be made from the available facts, ask one concise question for the missing product detail.
+2. Select relevant symptom, usage direction, and long-tail terms from `按类目整理症状词与长尾词表.txt`.
+3. Match the product to the closest category in `商品分类整理.txt`, then choose one category-specific `通用搭` phrase.
+4. Choose at most one allowed audience term only when it fits the product.
+5. Draft a title using the required structure.
+6. Count characters exactly. Revise until the title is 55-60 characters.
+7. Check the title twice for repeated words/phrases.
+8. Check forbidden words and high-risk medical claims.
+9. Keep the character count as an internal verification step; do not show counting details unless the user asks for them.
+10. If no compliant 55-60 character title can be made from the available facts, ask one concise question for the missing product detail.
 
 ## Spreadsheet Batch Workflow
 
@@ -129,6 +134,8 @@ Before answering, verify:
 
 - Title length is 55-60 characters.
 - The first 18-25 characters identify the product.
+- Audience terms are limited to `中老年人`, `儿童`, `小儿`, `青少年`, `女性`, or `男性`.
+- The title uses a category-matched `通用搭` phrase from `商品分类整理.txt` when category matching is possible.
 - For direct chat output, SKU lines are inside a code block.
 - Forbidden terms and high-risk treatment claims are absent.
 - The comparable brand is in the same product category.

@@ -5,7 +5,7 @@ Codex skill for generating Meituan B2C product long titles, SKU selling specs, a
 ## Contents
 
 - `product-title-sku-master/SKILL.md`: main skill instructions.
-- `product-title-sku-master/references/`: title examples, category long-tail terms, and forbidden words.
+- `product-title-sku-master/references/`: title examples, category long-tail terms, category `通用搭` mappings, and forbidden words.
 - `product-title-sku-master/agents/openai.yaml`: Codex UI metadata.
 
 ## Install
@@ -27,3 +27,5 @@ It fills:
 - `主标题`: first 45 title characters.
 - `商品补充语`: remaining title characters.
 - `SKU1`, `SKU2`, `SKU3`, `SKU5`, `SKU10`: generated SKU specs.
+
+Title structure now uses a restricted audience term (`中老年人`, `儿童`, `小儿`, `青少年`, `女性`, or `男性`) plus the matched category's `通用搭` phrase from `商品分类整理.txt`.
